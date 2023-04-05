@@ -1,0 +1,14 @@
+﻿# Builds
+[Bb]in
+
+# .NET tools cache directory
+.config/
+
+# JetBrains cache directory
+.idea/
+
+# Visual Studio cache directory
+.vs/
+
+# Gradle cache directory
+.gradle/
