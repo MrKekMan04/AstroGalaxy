@@ -3,9 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
-using MonoGame.Extended.Sprites;
 
-namespace AstroGalaxy.Controller;
+namespace AstroGalaxy.View;
 
 public class EntityRender : EntityDrawSystem
 {
@@ -31,14 +30,13 @@ public class EntityRender : EntityDrawSystem
 
         foreach (var entityId in ActiveEntities)
         {
-            var entity = _entityMapper.Get(entityId);
-            var playerPosition = entity.Transform.Position;
-
+            var player = _entityMapper.Get(entityId);
+            var playerPosition = player.Transform.Position;
             var scale = AstroGalaxy.Instance.WindowScale;
 
-            _spriteBatch.Draw(entity.Sprite,
-                new Vector2((int)(playerPosition.X * scale.X), (int)(playerPosition.Y * scale.Y)),
-                entity.Transform.Rotation, new Vector2(scale.X, scale.Y));
+            _spriteBatch.Draw(player.Sprite.TextureRegion.Texture,
+                new Vector2(playerPosition.X * scale.X, playerPosition.Y * scale.Y),
+                player.Frame, Color.White, 0f, Vector2.Zero, scale.X, SpriteEffects.None, 0);
         }
 
         _spriteBatch.End();

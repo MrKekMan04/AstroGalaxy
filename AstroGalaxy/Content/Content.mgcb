@@ -17,4 +17,5 @@
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyEnabled=false
-/build:Entities Textures\Player.png
+/build:Entities Textures\asteroid_4x4.png
+/build:Entities Textures\Spike.png

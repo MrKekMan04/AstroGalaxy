@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace AstroGalaxy;
+﻿namespace AstroGalaxy;
 
 public abstract class Constants
 {
-    public const string PlayerTexturePath = "Entities Textures/Player";
-    public const int PlayerDefaultHealth = 100;
-    public const int PlayerDefaultSpeed = 100;
-    public const float PlayerDefaultRotation = (float)Math.PI / 2;
+    public const string PlayerTexturePath = "Entities Textures/asteroid_4x4";
+    public const int PlayerDefaultHealth = 3;
+    public const int PlayerSpriteFrameSize = 125;
+    public const float PlayerSpriteFrameUpdateTime = 0.1f;
 }

@@ -20,36 +20,14 @@ public class PlayerUpdate : EntityUpdateSystem
 
     public override void Update(GameTime gameTime)
     {
-        var elapsedSeconds = gameTime.GetElapsedSeconds();
-
         foreach (var entityId in ActiveEntities)
         {
             var player = _playerMapper.Get(entityId);
 
-            player.Direct(CalculatePlayerVelocity());
+            if (!player.IsInJump && Keyboard.GetState().IsKeyDown(Keys.Space))
+                player.Jump();
 
-            player.Transform.Position += player.Velocity * (player.Speed * elapsedSeconds);
-            
-            player.UpdateCooldown(elapsedSeconds);
-            
-            // TODO: Shooting
+            player.Update(gameTime.GetElapsedSeconds());
         }
-    }
-
-    private static Vector2 CalculatePlayerVelocity()
-    {
-        var movement = new Vector2();
-        var keyboardState = Keyboard.GetState();
-
-        if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
-            movement += new Vector2(-1, 0);
-        if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
-            movement += new Vector2(1, 0);
-        if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
-            movement += new Vector2(0, -1);
-        if (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S))
-            movement += new Vector2(0, 1);
-
-        return movement;
     }
 }
