@@ -1,5 +1,6 @@
 ﻿using AstroGalaxy.Controller;
 using AstroGalaxy.Model.Entity;
+using AstroGalaxy.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -16,15 +17,13 @@ public class AstroGalaxy : Game
 
     public Vector2 WindowScale => CalculateWindowScale();
 
-    private readonly GraphicsDeviceManager _graphics;
+    public readonly GraphicsDeviceManager Graphics;
     
-    private GameWindow GameWindow => Window;
-
     private World _world;
 
     private AstroGalaxy()
     {
-        _graphics = new GraphicsDeviceManager(this);
+        Graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         Window.AllowUserResizing = true;
@@ -35,7 +34,7 @@ public class AstroGalaxy : Game
         _world = new WorldBuilder()
             .AddSystem(new PlayerProcessing())
             .AddSystem(new PlayerUpdate())
-            .AddSystem(new EntityRender(_graphics.GraphicsDevice))
+            .AddSystem(new EntityRender(Graphics.GraphicsDevice))
             .Build();
 
         Components.Add(_world);
@@ -66,22 +65,19 @@ public class AstroGalaxy : Game
     private void InitPlayer()
     {
         var entity = _world.CreateEntity();
+        var spawnPointX = Graphics.PreferredBackBufferWidth / 3 - Constants.PlayerSpriteFrameSize / 2;
+        const int spawnPointY = 0;
 
-        var spawnPointX = GameWindow.ClientBounds.Center.X / 2;
-        var spawnPointY = GameWindow.ClientBounds.Center.Y;
-
-        entity.Attach(new Player(new Transform2(spawnPointX, spawnPointY, Constants.PlayerDefaultRotation),
-            new Sprite(Content.Load<Texture2D>(Constants.PlayerTexturePath)),
-            Constants.PlayerDefaultHealth, Constants.PlayerDefaultSpeed));
+        entity.Attach(new Player(new Transform2(spawnPointX, spawnPointY),
+            new Sprite(Content.Load<Texture2D>(Constants.PlayerTexturePath))));
     }
 
     private Vector2 CalculateWindowScale()
     {
-        var windowRect = GameWindow.ClientBounds;
-        var windowCenter = windowRect.Center;
+        var windowRect = Window.ClientBounds;
 
-        var scaleX = (float)windowRect.Width / (windowCenter.X * 2);
-        var scaleY = (float)windowRect.Height / (windowCenter.Y * 2);
+        var scaleX = (float)windowRect.Width / Graphics.PreferredBackBufferWidth;
+        var scaleY = (float)windowRect.Height / Graphics.PreferredBackBufferHeight;
 
         return new Vector2(scaleX, scaleY);
     }
