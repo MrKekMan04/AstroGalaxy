@@ -1,4 +1,4 @@
-﻿using AstroGalaxy.Model.Entity;
+﻿using AstroGalaxy.Model;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Entities;
@@ -11,16 +11,20 @@ public class EntityRender : EntityDrawSystem
     private readonly GraphicsDevice _graphicsDevice;
     private readonly SpriteBatch _spriteBatch;
 
-    private ComponentMapper<Player> _entityMapper;
+    private ComponentMapper<Player> _playerMapper;
+    private ComponentMapper<Spike> _spikeMapper;
 
-    public EntityRender(GraphicsDevice graphicsDevice) : base(Aspect.All(typeof(Player)))
+    public EntityRender(GraphicsDevice graphicsDevice) : base(Aspect.One(typeof(Player), typeof(Spike)))
     {
         _graphicsDevice = graphicsDevice;
         _spriteBatch = new SpriteBatch(graphicsDevice);
     }
 
-    public override void Initialize(IComponentMapperService mapperService) =>
-        _entityMapper = mapperService.GetMapper<Player>();
+    public override void Initialize(IComponentMapperService mapperService)
+    {
+        _playerMapper = mapperService.GetMapper<Player>();
+        _spikeMapper = mapperService.GetMapper<Spike>();
+    }
 
     public override void Draw(GameTime gameTime)
     {
@@ -28,17 +32,33 @@ public class EntityRender : EntityDrawSystem
 
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
+        var scale = AstroGalaxy.Instance.WindowScale;
+
         foreach (var entityId in ActiveEntities)
         {
-            var player = _entityMapper.Get(entityId);
-            var playerPosition = player.Transform.Position;
-            var scale = AstroGalaxy.Instance.WindowScale;
+            var entity = GetGameObject(entityId);
 
-            _spriteBatch.Draw(player.Sprite.TextureRegion.Texture,
-                new Vector2(playerPosition.X * scale.X, playerPosition.Y * scale.Y),
-                player.Frame, Color.White, 0f, Vector2.Zero, scale.X, SpriteEffects.None, 0);
+            if (entity == null) continue;
+
+            _spriteBatch.Draw(entity.Sprite.TextureRegion.Texture,
+                new Vector2(entity.Transform.Position.X * scale.X, entity.Transform.Position.Y * scale.Y),
+                entity.Frame,
+                Color.White,
+                entity.Transform.Rotation,
+                entity.Sprite.Origin,
+                scale,
+                SpriteEffects.None, 
+                0);
         }
 
         _spriteBatch.End();
+    }
+
+    private GameObject GetGameObject(int entityId)
+    {
+        if (_playerMapper.Has(entityId))
+            return _playerMapper.Get(entityId);
+
+        return _spikeMapper.Has(entityId) ? _spikeMapper.Get(entityId) : null;
     }
 }

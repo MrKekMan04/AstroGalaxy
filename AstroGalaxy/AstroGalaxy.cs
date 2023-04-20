@@ -1,5 +1,5 @@
 ﻿using AstroGalaxy.Controller;
-using AstroGalaxy.Model.Entity;
+using AstroGalaxy.Model;
 using AstroGalaxy.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,8 +18,8 @@ public class AstroGalaxy : Game
     public Vector2 WindowScale => CalculateWindowScale();
 
     public readonly GraphicsDeviceManager Graphics;
-    
-    private World _world;
+
+    public World World { get; private set; }
 
     private AstroGalaxy()
     {
@@ -31,13 +31,13 @@ public class AstroGalaxy : Game
 
     protected override void Initialize()
     {
-        _world = new WorldBuilder()
+        World = new WorldBuilder()
             .AddSystem(new PlayerProcessing())
-            .AddSystem(new PlayerUpdate())
+            .AddSystem(new SpikeUpdate())
             .AddSystem(new EntityRender(Graphics.GraphicsDevice))
             .Build();
 
-        Components.Add(_world);
+        Components.Add(World);
 
         InitPlayer();
 
@@ -50,26 +50,25 @@ public class AstroGalaxy : Game
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        _world.Update(gameTime);
+        World.Update(gameTime);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        _world.Draw(gameTime);
+        World.Draw(gameTime);
 
         base.Draw(gameTime);
     }
 
     private void InitPlayer()
     {
-        var entity = _world.CreateEntity();
-        var spawnPointX = Graphics.PreferredBackBufferWidth / 3 - Constants.PlayerSpriteFrameSize / 2;
-        const int spawnPointY = 0;
+        var entity = World.CreateEntity();
 
-        entity.Attach(new Player(new Transform2(spawnPointX, spawnPointY),
-            new Sprite(Content.Load<Texture2D>(Constants.PlayerTexturePath))));
+        entity.Attach(new Player(
+            new Transform2(Graphics.PreferredBackBufferWidth / 3 - Constants.PlayerSpriteFrameSize / 2, 0),
+            new Sprite(Content.Load<Texture2D>(Constants.PlayerTexturePath)) { Origin = Vector2.Zero }));
     }
 
     private Vector2 CalculateWindowScale()
