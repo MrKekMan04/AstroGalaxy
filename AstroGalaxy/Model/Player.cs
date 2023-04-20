@@ -3,39 +3,25 @@ using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Sprites;
 
-namespace AstroGalaxy.Model.Entity;
+namespace AstroGalaxy.Model;
 
-public class Player
+public class Player : GameObject
 {
-    public readonly Transform2 Transform;
-    public readonly Sprite Sprite;
-
-    public Rectangle Frame =>
+    public override Rectangle? Frame =>
         new(_currentFrame.X * Constants.PlayerSpriteFrameSize, _currentFrame.Y * Constants.PlayerSpriteFrameSize,
             Constants.PlayerSpriteFrameSize, Constants.PlayerSpriteFrameSize);
 
     public bool IsInJump { get; private set; }
-
-    private const float JumpTime = 0.5f;
-
-    private readonly Point _spriteSize = new(4, 4);
+    private bool _isUpSide = true;
+    private float _jumpTimeElapsed;
 
     private Point _currentFrame = Point.Zero;
+    private float _frameTimeElapsed;
 
     private int _health;
 
-    private float _frameTimeElapsed;
-
-    private float _jumpTimeElapsed;
-
-    private bool _isUpSide = true;
-
-    public Player(Transform2 transform, Sprite sprite)
-    {
-        Transform = transform;
-        Sprite = sprite;
+    public Player(Transform2 transform, Sprite sprite) : base(transform, sprite) =>
         _health = Constants.PlayerDefaultHealth;
-    }
 
     public void Update(float deltaTime)
     {
@@ -56,17 +42,13 @@ public class Player
 
         _jumpTimeElapsed += deltaTime;
 
-        const int playerHeight = Constants.PlayerSpriteFrameSize;
         var height = AstroGalaxy.Instance.Graphics.PreferredBackBufferHeight;
 
-        if (_isUpSide)
-            Transform.Position = new Vector2(Transform.Position.X,
-                (height - playerHeight) * _jumpTimeElapsed / JumpTime);
-        else
-            Transform.Position = new Vector2(Transform.Position.X,
-                height - Math.Max(height * _jumpTimeElapsed / JumpTime, playerHeight));
+        Transform.Position = new Vector2(Transform.Position.X, _isUpSide
+            ? (height - Constants.PlayerSpriteFrameSize) * _jumpTimeElapsed / Constants.PlayerJumpTime
+            : height - Math.Max(height * _jumpTimeElapsed / Constants.PlayerJumpTime, Constants.PlayerSpriteFrameSize));
 
-        if (!(_jumpTimeElapsed >= JumpTime)) return;
+        if (!(_jumpTimeElapsed >= Constants.PlayerJumpTime)) return;
 
         IsInJump = false;
         _jumpTimeElapsed = 0;
@@ -75,9 +57,7 @@ public class Player
 
     private void UpdateFrame(float deltaTime)
     {
-        _frameTimeElapsed += deltaTime;
-
-        if (!(_frameTimeElapsed >= Constants.PlayerSpriteFrameUpdateTime)) return;
+        if (!((_frameTimeElapsed += deltaTime) >= Constants.PlayerSpriteFrameUpdateTime)) return;
 
         _frameTimeElapsed = 0;
         NextFrame();
@@ -85,14 +65,11 @@ public class Player
 
     private void NextFrame()
     {
-        ++_currentFrame.X;
-
-        if (_currentFrame.X < _spriteSize.X) return;
+        if (++_currentFrame.X < Constants.PlayerSpriteSize.X) return;
 
         _currentFrame.X = 0;
-        ++_currentFrame.Y;
 
-        if (_currentFrame.Y >= _spriteSize.Y)
+        if (++_currentFrame.Y >= Constants.PlayerSpriteSize.Y)
             _currentFrame.Y = 0;
     }
 }
