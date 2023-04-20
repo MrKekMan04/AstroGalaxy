@@ -1,5 +1,7 @@
-﻿using AstroGalaxy.Model.Entity;
+﻿using AstroGalaxy.Model;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 
@@ -20,6 +22,11 @@ public class PlayerProcessing : EntityProcessingSystem
     public override void Process(GameTime gameTime, int entityId)
     {
         var player = _playerMapper.Get(entityId);
+        
+        if (!player.IsInJump && Keyboard.GetState().IsKeyDown(Keys.Space))
+            player.Jump();
+
+        player.Update(gameTime.GetElapsedSeconds());
 
         //TODO: GameOver
 
