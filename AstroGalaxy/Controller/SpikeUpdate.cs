@@ -48,7 +48,7 @@ public class SpikeUpdate : EntityUpdateSystem
         var random = new Random();
 
         _deltaXToSpawn = Constants.SpikeSpriteSize + Constants.PlayerSpriteFrameSize * _translation.X *
-            Math.Max(Math.Min(_timeElapsed + 0.8f, 80), 40) * Constants.PlayerJumpTime;
+            Math.Max(Math.Min(_timeElapsed + Constants.PlayerJumpTime, 80), 40) * (Constants.PlayerJumpTime + 0.2f);
 
         var graphics = AstroGalaxy.Instance.Graphics;
         var isSpawnUp = random.Next(2) == 1;

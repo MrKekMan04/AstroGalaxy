@@ -11,6 +11,9 @@ public class Player : GameObject
         new(_currentFrame.X * Constants.PlayerSpriteFrameSize, _currentFrame.Y * Constants.PlayerSpriteFrameSize,
             Constants.PlayerSpriteFrameSize, Constants.PlayerSpriteFrameSize);
 
+    public override RectangleF Boundaries => new(Transform.Position.X, Transform.Position.Y,
+        Constants.PlayerSpriteFrameSize, Constants.PlayerSpriteFrameSize);
+
     public bool IsInJump { get; private set; }
     private bool _isUpSide = true;
     private float _jumpTimeElapsed;
@@ -18,23 +21,30 @@ public class Player : GameObject
     private Point _currentFrame = Point.Zero;
     private float _frameTimeElapsed;
 
-    private int _health;
+    public int Health { get; private set; }
+    private float _takingDamageCooldown;
 
     public Player(Transform2 transform, Sprite sprite) : base(transform, sprite) =>
-        _health = Constants.PlayerDefaultHealth;
+        Health = Constants.PlayerDefaultHealth;
 
     public void Update(float deltaTime)
     {
         UpdatePosition(deltaTime);
-
+        UpdateUndeadCooldown(deltaTime);
         UpdateFrame(deltaTime);
     }
 
     public void Jump() => IsInJump = true;
 
-    public void TakeDamage() => _health--;
+    public bool CanTakeDamage() => _takingDamageCooldown <= 0;
 
-    public bool IsDead() => _health <= 0;
+    public void TakeDamage()
+    {
+        Health--;
+        _takingDamageCooldown = 3;
+    }
+
+    public bool IsDead() => Health <= 0;
 
     private void UpdatePosition(float deltaTime)
     {
@@ -53,6 +63,12 @@ public class Player : GameObject
         IsInJump = false;
         _jumpTimeElapsed = 0;
         _isUpSide = !_isUpSide;
+    }
+
+    private void UpdateUndeadCooldown(float deltaTime)
+    {
+        if (_takingDamageCooldown > 0) 
+            _takingDamageCooldown -= deltaTime;
     }
 
     private void UpdateFrame(float deltaTime)

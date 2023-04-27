@@ -29,3 +29,4 @@ C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Newtonso
 C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Content\Entities Textures\Player.xnb
 C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Content\Entities Textures\asteroid_4x4.xnb
 C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Content\Entities Textures\Spike.xnb
+C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Content\Entities Textures\heart.xnb

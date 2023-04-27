@@ -21,6 +21,8 @@ public class AstroGalaxy : Game
 
     public World World { get; private set; }
 
+    public Player Player { get; private set; }
+
     private AstroGalaxy()
     {
         Graphics = new GraphicsDeviceManager(this);
@@ -34,9 +36,11 @@ public class AstroGalaxy : Game
         World = new WorldBuilder()
             .AddSystem(new PlayerProcessing())
             .AddSystem(new SpikeUpdate())
+            .AddSystem(new CheckBoundariesUpdate())
             .AddSystem(new EntityRender(Graphics.GraphicsDevice))
+            .AddSystem(new GameUiRender(Graphics.GraphicsDevice))
             .Build();
-
+        
         Components.Add(World);
 
         InitPlayer();
@@ -69,6 +73,8 @@ public class AstroGalaxy : Game
         entity.Attach(new Player(
             new Transform2(Graphics.PreferredBackBufferWidth / 3 - Constants.PlayerSpriteFrameSize / 2, 0),
             new Sprite(Content.Load<Texture2D>(Constants.PlayerTexturePath)) { Origin = Vector2.Zero }));
+
+        Player = entity.Get<Player>();
     }
 
     private Vector2 CalculateWindowScale()
