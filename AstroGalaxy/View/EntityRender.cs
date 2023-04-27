@@ -47,7 +47,7 @@ public class EntityRender : EntityDrawSystem
                 entity.Transform.Rotation,
                 entity.Sprite.Origin,
                 scale,
-                SpriteEffects.None, 
+                SpriteEffects.None,
                 0);
         }
 

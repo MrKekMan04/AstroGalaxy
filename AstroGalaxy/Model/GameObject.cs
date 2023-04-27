@@ -9,6 +9,7 @@ public abstract class GameObject
     public readonly Transform2 Transform;
     public readonly Sprite Sprite;
     public abstract Rectangle? Frame { get; }
+    public abstract RectangleF Boundaries { get; }
 
     protected GameObject(Transform2 transform, Sprite sprite)
     {

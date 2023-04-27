@@ -8,6 +8,9 @@ public class Spike : GameObject
 {
     public override Rectangle? Frame => null;
 
+    public override RectangleF Boundaries => new(Transform.Position.X - Constants.SpikeSpriteSize / 2,
+        Transform.Position.Y - Constants.SpikeSpriteSize / 2, Constants.SpikeSpriteSize, Constants.SpikeSpriteSize);
+
     public Spike(Transform2 transform, Sprite sprite) : base(transform, sprite)
     {
     }
