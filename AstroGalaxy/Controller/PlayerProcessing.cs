@@ -1,4 +1,5 @@
 ﻿using AstroGalaxy.Model;
+using AstroGalaxy.Model.StateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
@@ -14,8 +15,7 @@ public class PlayerProcessing : EntityProcessingSystem
     public PlayerProcessing() : base(Aspect.All(typeof(Player)))
     {
     }
-
-
+    
     public override void Initialize(IComponentMapperService mapperService) =>
         _playerMapper = mapperService.GetMapper<Player>();
 
@@ -28,9 +28,7 @@ public class PlayerProcessing : EntityProcessingSystem
 
         player.Update(gameTime.GetElapsedSeconds());
 
-        //TODO: GameOver
-
         if (player.IsDead())
-            DestroyEntity(entityId);
+            AstroGalaxy.Instance.StateMachine.SetState(GameState.LoseScreen);
     }
 }

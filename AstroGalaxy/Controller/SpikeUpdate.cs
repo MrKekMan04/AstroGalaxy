@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using AstroGalaxy.Model;
+using AstroGalaxy.Model.StateMachine.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
@@ -16,9 +18,9 @@ public class SpikeUpdate : EntityUpdateSystem
     private float _deltaXToSpawn;
     private float _timeElapsed;
 
-    public SpikeUpdate() : base(Aspect.All(typeof(Spike)))
-    {
-    }
+    private readonly MainGame _game;
+
+    public SpikeUpdate(MainGame game) : base(Aspect.All(typeof(Spike))) => _game = game;
 
     public override void Initialize(IComponentMapperService mapperService) =>
         _spikeMapper = mapperService.GetMapper<Spike>();
@@ -27,10 +29,8 @@ public class SpikeUpdate : EntityUpdateSystem
     {
         var distanceElapsed = _translation * Math.Max(Math.Min(_timeElapsed += gameTime.GetElapsedSeconds(), 80), 40);
 
-        foreach (var entityId in ActiveEntities)
+        foreach (var entityId in ActiveEntities.Where(entityId => _spikeMapper.Has(entityId)))
         {
-            if (!_spikeMapper.Has(entityId)) continue;
-
             var spike = _spikeMapper.Get(entityId);
 
             spike.Move(distanceElapsed);
@@ -53,7 +53,7 @@ public class SpikeUpdate : EntityUpdateSystem
         var graphics = AstroGalaxy.Instance.Graphics;
         var isSpawnUp = random.Next(2) == 1;
 
-        var entity = AstroGalaxy.Instance.World.CreateEntity();
+        var entity = _game.World.CreateEntity();
 
         entity.Attach(new Spike(
             new Transform2(graphics.PreferredBackBufferWidth + (isSpawnUp ? Constants.SpikeSpriteSize : 0),

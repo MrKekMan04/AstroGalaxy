@@ -1,12 +1,5 @@
-﻿using AstroGalaxy.Controller;
-using AstroGalaxy.Model;
-using AstroGalaxy.View;
+﻿using AstroGalaxy.Model.StateMachine;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended;
-using MonoGame.Extended.Entities;
-using MonoGame.Extended.Sprites;
 
 namespace AstroGalaxy;
 
@@ -19,9 +12,7 @@ public class AstroGalaxy : Game
 
     public readonly GraphicsDeviceManager Graphics;
 
-    public World World { get; private set; }
-
-    public Player Player { get; private set; }
+    public StateMachine StateMachine { get; private set; }
 
     private AstroGalaxy()
     {
@@ -33,48 +24,24 @@ public class AstroGalaxy : Game
 
     protected override void Initialize()
     {
-        World = new WorldBuilder()
-            .AddSystem(new PlayerProcessing())
-            .AddSystem(new SpikeUpdate())
-            .AddSystem(new CheckBoundariesUpdate())
-            .AddSystem(new EntityRender(Graphics.GraphicsDevice))
-            .AddSystem(new GameUiRender(Graphics.GraphicsDevice))
-            .Build();
-        
-        Components.Add(World);
-
-        InitPlayer();
+        StateMachine = new StateMachine(Graphics);
+        StateMachine.SetState(GameState.Game);
 
         base.Initialize();
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-            Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-
-        World.Update(gameTime);
+        StateMachine.CurrentState.Update(gameTime);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        World.Draw(gameTime);
-
+        StateMachine.CurrentState.Draw(gameTime);
+        
         base.Draw(gameTime);
-    }
-
-    private void InitPlayer()
-    {
-        var entity = World.CreateEntity();
-
-        entity.Attach(new Player(
-            new Transform2(Graphics.PreferredBackBufferWidth / 3 - Constants.PlayerSpriteFrameSize / 2, 0),
-            new Sprite(Content.Load<Texture2D>(Constants.PlayerTexturePath)) { Origin = Vector2.Zero }));
-
-        Player = entity.Get<Player>();
     }
 
     private Vector2 CalculateWindowScale()
