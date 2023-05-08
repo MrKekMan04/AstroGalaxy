@@ -16,4 +16,12 @@ public abstract class Constants
     
     public const string HeartTexturePath = "Entities Textures/heart";
     public const int HeartSpriteSize = 80;
+
+    public const string ButtonTexturePath = "UI Textures/Button";
+    public const string LoseScreenMenuButtonText = "В меню";
+    public const string LoseScreenRepeatButtonText = "Заново";
+    public const string LoseScreenTitle = "ПОТРАЧЕНО!";
+
+    public const string ArialFontPath = "Fonts/Arial";
+    public const int ArialFontHeight = 20;
 }
