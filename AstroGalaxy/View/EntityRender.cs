@@ -8,17 +8,13 @@ namespace AstroGalaxy.View;
 
 public class EntityRender : EntityDrawSystem
 {
-    private readonly GraphicsDevice _graphicsDevice;
     private readonly SpriteBatch _spriteBatch;
 
     private ComponentMapper<Player> _playerMapper;
     private ComponentMapper<Spike> _spikeMapper;
 
-    public EntityRender(GraphicsDevice graphicsDevice) : base(Aspect.One(typeof(Player), typeof(Spike)))
-    {
-        _graphicsDevice = graphicsDevice;
+    public EntityRender(GraphicsDevice graphicsDevice) : base(Aspect.One(typeof(Player), typeof(Spike))) => 
         _spriteBatch = new SpriteBatch(graphicsDevice);
-    }
 
     public override void Initialize(IComponentMapperService mapperService)
     {
@@ -28,8 +24,6 @@ public class EntityRender : EntityDrawSystem
 
     public override void Draw(GameTime gameTime)
     {
-        _graphicsDevice.Clear(Color.Black);
-
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
         var scale = AstroGalaxy.Instance.WindowScale;
