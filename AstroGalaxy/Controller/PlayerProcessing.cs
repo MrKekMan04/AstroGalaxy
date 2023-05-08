@@ -1,5 +1,5 @@
 ﻿using AstroGalaxy.Model;
-using AstroGalaxy.Model.StateMachine;
+using AstroGalaxy.Model.StateMachine.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
