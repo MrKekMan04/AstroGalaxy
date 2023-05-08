@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/Vitaliy/RiderProjects/AstroGalaxy/AstroGalaxy/Content/Entities Textures/heart.png</SourceFile>
+  <SourceTime>2023-04-24T16:02:41.5476855+05:00</SourceTime>
+  <DestFile>C:/Users/Vitaliy/RiderProjects/AstroGalaxy/AstroGalaxy/Content/bin/DesktopGL/Content/Entities Textures/heart.xnb</DestFile>
+  <DestTime>2023-04-24T16:23:30.6438463+05:00</DestTime>
+  <Importer>TextureImporter</Importer>
+  <ImporterTime>2022-07-26T16:44:56+05:00</ImporterTime>
+  <Processor>TextureProcessor</Processor>
+  <ProcessorTime>2022-07-26T16:44:56+05:00</ProcessorTime>
+  <Parameters>
+    <Key>ColorKeyEnabled</Key>
+    <Value>false</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

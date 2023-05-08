@@ -22,11 +22,21 @@ public class GameUiRender : DrawSystem
     {
         _spriteBatch.Begin();
 
+        var scale = AstroGalaxy.Instance.WindowScale;
+
         var startY = AstroGalaxy.Instance.Graphics.PreferredBackBufferHeight / 2 -
                      _game.Player.Health * Constants.HeartSpriteSize / 2;
 
         for (var i = 0; i < _game.Player.Health; i++)
-            _spriteBatch.Draw(_heartTexture, new Vector2(0, startY + i * Constants.HeartSpriteSize), Color.White);
+            _spriteBatch.Draw(_heartTexture,
+                new Vector2(0, startY * scale.Y + i * Constants.HeartSpriteSize * scale.Y),
+                null,
+                Color.White,
+                0,
+                Vector2.Zero,
+                scale,
+                SpriteEffects.None,
+                0);
 
         _spriteBatch.End();
     }

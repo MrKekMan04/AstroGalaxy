@@ -1,4 +1,4 @@
-﻿namespace AstroGalaxy.Model.StateMachine;
+﻿namespace AstroGalaxy.Model.StateMachine.States;
 
 public enum GameState
 {

@@ -30,3 +30,5 @@ C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Content\
 C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Content\Entities Textures\asteroid_4x4.xnb
 C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Content\Entities Textures\Spike.xnb
 C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Content\Entities Textures\heart.xnb
+C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Content\UI Textures\Button.xnb
+C:\Users\Vitaliy\RiderProjects\AstroGalaxy\AstroGalaxy\bin\Debug\net6.0\Content\Fonts\Arial.xnb

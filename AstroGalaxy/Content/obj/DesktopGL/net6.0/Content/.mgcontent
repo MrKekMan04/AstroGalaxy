@@ -7,8 +7,12 @@
     <File>C:/Users/Vitaliy/RiderProjects/AstroGalaxy/AstroGalaxy/Content/Entities Textures/asteroid_4x4.png</File>
     <File>C:/Users/Vitaliy/RiderProjects/AstroGalaxy/AstroGalaxy/Content/Entities Textures/Spike.png</File>
     <File>C:/Users/Vitaliy/RiderProjects/AstroGalaxy/AstroGalaxy/Content/Entities Textures/heart.png</File>
+    <File>C:/Users/Vitaliy/RiderProjects/AstroGalaxy/AstroGalaxy/Content/UI Textures/Button.png</File>
+    <File>C:/Users/Vitaliy/RiderProjects/AstroGalaxy/AstroGalaxy/Content/Fonts/Arial.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

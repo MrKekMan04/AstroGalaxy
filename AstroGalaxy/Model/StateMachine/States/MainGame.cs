@@ -41,7 +41,7 @@ public class MainGame : State
 
         InitPlayer();
 
-        ChangeState += RemoveWorldFromComponents;
+        ChangeState += () => AstroGalaxy.Instance.Components.Remove(World);
     }
 
     public override void Update(GameTime gameTime)
@@ -64,8 +64,6 @@ public class MainGame : State
 
         Player = entity.Get<Player>();
     }
-
-    private void RemoveWorldFromComponents() => AstroGalaxy.Instance.Components.Remove(World);
 
     private void CheckForPause()
     {

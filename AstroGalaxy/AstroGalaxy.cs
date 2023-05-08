@@ -1,4 +1,5 @@
 ﻿using AstroGalaxy.Model.StateMachine;
+using AstroGalaxy.Model.StateMachine.States;
 using Microsoft.Xna.Framework;
 
 namespace AstroGalaxy;
@@ -39,6 +40,8 @@ public class AstroGalaxy : Game
 
     protected override void Draw(GameTime gameTime)
     {
+        Graphics.GraphicsDevice.Clear(Color.Black);
+        
         StateMachine.CurrentState.Draw(gameTime);
         
         base.Draw(gameTime);
