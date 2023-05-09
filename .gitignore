@@ -1,11 +1,13 @@
 ﻿# Builds
 [Bb]in
-
-# .NET tools cache directory
-.config/
+[Oo]bj/Debug/
 
 # JetBrains cache directory
 .idea/
+
+# MonoGame cache directory
+[Cc]ontent/bin/
+[Cc]ontent/obj/
 
 # Visual Studio cache directory
 .vs/
