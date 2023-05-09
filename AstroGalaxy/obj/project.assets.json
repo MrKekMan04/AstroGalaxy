@@ -231,11 +231,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vitaliy\\RiderProjects\\AstroGalaxy\\AstroGalaxy\\AstroGalaxy.csproj",
+      "projectUniqueName": "E:\\Projects\\C#\\AstroGalaxy\\AstroGalaxy\\AstroGalaxy.csproj",
       "projectName": "AstroGalaxy",
-      "projectPath": "C:\\Users\\Vitaliy\\RiderProjects\\AstroGalaxy\\AstroGalaxy\\AstroGalaxy.csproj",
+      "projectPath": "E:\\Projects\\C#\\AstroGalaxy\\AstroGalaxy\\AstroGalaxy.csproj",
       "packagesPath": "C:\\Users\\Vitaliy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vitaliy\\RiderProjects\\AstroGalaxy\\AstroGalaxy\\obj\\",
+      "outputPath": "E:\\Projects\\C#\\AstroGalaxy\\AstroGalaxy\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Vitaliy\\AppData\\Roaming\\NuGet\\NuGet.Config"

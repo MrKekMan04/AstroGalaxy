@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OybQNVmZmuAlnvfHh2zy9SICdCSf58tZ176GVmxgSZpCxZn6drm4hBFCqQYJLl8esyI/hRlpqqG2K+uAdsrvJQ==",
+  "dgSpecHash": "y1neqza08fjIV17L+relQQyhBJC6BtqjX1bM41Op3He9qNH5oZsKnUPTgRcx1NycMaLqss/+W+ZzjUXf1jrVLA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Vitaliy\\RiderProjects\\AstroGalaxy\\AstroGalaxy\\AstroGalaxy.csproj",
+  "projectFilePath": "E:\\Projects\\C#\\AstroGalaxy\\AstroGalaxy\\AstroGalaxy.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Vitaliy\\.nuget\\packages\\monogame.content.builder.task\\3.8.1.303\\monogame.content.builder.task.3.8.1.303.nupkg.sha512",
     "C:\\Users\\Vitaliy\\.nuget\\packages\\monogame.extended\\3.8.0\\monogame.extended.3.8.0.nupkg.sha512",
