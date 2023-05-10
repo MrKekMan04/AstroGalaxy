@@ -1,13 +1,13 @@
 ﻿# Builds
-[Bb]in
-[Oo]bj/Debug/
+[Aa]stroGalaxy/[Bb]in
+[Aa]stroGalaxy/[Oo]bj/Debug
 
 # JetBrains cache directory
 .idea/
 
 # MonoGame cache directory
-[Cc]ontent/bin/
-[Cc]ontent/obj/
+[Aa]stroGalaxy/[Cc]ontent/[Bb]in
+[Aa]stroGalaxy/[Cc]ontent/[Oo]bj
 
 # Visual Studio cache directory
 .vs/
