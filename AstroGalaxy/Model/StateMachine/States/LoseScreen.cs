@@ -11,8 +11,6 @@ namespace AstroGalaxy.Model.StateMachine.States;
 
 public class LoseScreen : State
 {
-    private World World { get; set; }
-
     public LoseScreen(GraphicsDeviceManager graphics) : base(graphics)
     {
     }
@@ -25,11 +23,9 @@ public class LoseScreen : State
             .AddSystem(new ButtonRender(Graphics.GraphicsDevice))
             .Build();
 
-        AstroGalaxy.Instance.Components.Add(World);
-
         InitButtons();
-
-        ChangeState += () => AstroGalaxy.Instance.Components.Remove(World);
+        
+        base.Initialize();
     }
 
     public override void Update(GameTime gameTime) => World.Update(gameTime);
@@ -55,7 +51,7 @@ public class LoseScreen : State
         toMenuButton.Get<Button>().Click += () => AstroGalaxy.Instance.StateMachine.SetState(GameState.SplashScreen);
 
         reRunButton.Attach(new Button(
-            new Transform2(Graphics.PreferredBackBufferWidth - oneWidthUnit, yStart),
+            new Transform2(Graphics.PreferredBackBufferWidth - oneWidthUnit * 3, yStart),
             new Sprite(buttonTexture),
             new RectangleF(Graphics.PreferredBackBufferWidth - oneWidthUnit * 3, yStart, oneWidthUnit * 2,
                 yEnd - yStart), Constants.LoseScreenRepeatButtonText));

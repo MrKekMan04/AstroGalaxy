@@ -12,12 +12,9 @@ namespace AstroGalaxy.Model.StateMachine.States;
 public class MainGame : State
 {
     public Player Player { get; private set; }
-    public World World { get; private set; }
-    
     private Sprite _playerSprite;
 
     private bool _isPauseButtonPressed;
-
     private bool _isGamePaused;
 
     public MainGame(GraphicsDeviceManager graphics) : base(graphics)
@@ -37,11 +34,9 @@ public class MainGame : State
             .AddSystem(new GameUiRender(Graphics.GraphicsDevice, this))
             .Build();
 
-        AstroGalaxy.Instance.Components.Add(World);
-
         InitPlayer();
 
-        ChangeState += () => AstroGalaxy.Instance.Components.Remove(World);
+        base.Initialize();
     }
 
     public override void Update(GameTime gameTime)
@@ -59,7 +54,7 @@ public class MainGame : State
         var entity = World.CreateEntity();
 
         entity.Attach(new Player(
-            new Transform2(Graphics.PreferredBackBufferWidth / 3 - Constants.PlayerSpriteFrameSize / 2, 0),
+            new Transform2(Graphics.PreferredBackBufferWidth / 3f - Constants.PlayerSpriteFrameSize / 2f, 0),
             _playerSprite));
 
         Player = entity.Get<Player>();
