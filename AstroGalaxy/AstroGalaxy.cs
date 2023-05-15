@@ -26,7 +26,7 @@ public class AstroGalaxy : Game
     protected override void Initialize()
     {
         StateMachine = new StateMachine(Graphics);
-        StateMachine.SetState(GameState.Game);
+        StateMachine.SetState(GameState.SplashScreen);
 
         base.Initialize();
     }
