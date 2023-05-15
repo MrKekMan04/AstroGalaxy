@@ -1,4 +1,5 @@
-﻿using AstroGalaxy.Controller;
+﻿using System;
+using AstroGalaxy.Controller;
 using AstroGalaxy.Model.UI;
 using AstroGalaxy.View;
 using Microsoft.Xna.Framework;
@@ -14,7 +15,7 @@ public class SplashScreen : State
     public SplashScreen(GraphicsDeviceManager graphics) : base(graphics)
     {
     }
-    
+
     public override void Initialize()
     {
         World = new WorldBuilder()
@@ -22,9 +23,9 @@ public class SplashScreen : State
             .AddSystem(new SplashScreenUiRender(Graphics.GraphicsDevice))
             .AddSystem(new ButtonRender(Graphics.GraphicsDevice))
             .Build();
-        
+
         InitButtons();
-        
+
         base.Initialize();
     }
 
@@ -34,31 +35,27 @@ public class SplashScreen : State
 
     private void InitButtons()
     {
-        var playButton = World.CreateEntity();
-        var exitButton = World.CreateEntity();
-        
         var oneWidthUnit = Graphics.PreferredBackBufferWidth * 15 / 100;
-        
-        var buttonXStart = oneWidthUnit;
-        var buttonWidth = oneWidthUnit * 2;
-
-        var playYStart = Graphics.PreferredBackBufferHeight * 3 / 10;
-        var exitYStart = Graphics.PreferredBackBufferHeight * 45 / 100;
         var buttonHeight = Graphics.PreferredBackBufferHeight / 10;
         var buttonTexture = AstroGalaxy.Instance.Content.Load<Texture2D>(Constants.ButtonTexturePath);
 
-        playButton.Attach(new Button(
-            new Transform2(buttonXStart, playYStart),
-            new Sprite(buttonTexture), new RectangleF(buttonXStart, buttonXStart, buttonWidth, buttonHeight),
-            Constants.SplashScreenPlayButtonText));
+        var titles = new[] { Constants.SplashScreenPlayButtonText, Constants.SplashScreenExitButtonText };
+        Action[] actions =
+            { () => AstroGalaxy.Instance.StateMachine.SetState(GameState.Game), AstroGalaxy.Instance.Exit };
 
-        playButton.Get<Button>().Click += () => AstroGalaxy.Instance.StateMachine.SetState(GameState.Game);
-        
-        exitButton.Attach(new Button(
-            new Transform2(buttonXStart, exitYStart),
-            new Sprite(buttonTexture), new RectangleF(buttonXStart, exitYStart, buttonWidth, buttonHeight),
-            Constants.SplashScreenExitButtonText));
+        for (var i = 0; i < 2; i++)
+        {
+            var buttonTopY = i == 0
+                ? Graphics.PreferredBackBufferHeight * 3 / 10
+                : Graphics.PreferredBackBufferHeight * 45 / 100;
+            var button = World.CreateEntity();
 
-        exitButton.Get<Button>().Click += () => AstroGalaxy.Instance.Exit();
+            button.Attach(new Button(
+                new Transform2(oneWidthUnit, buttonTopY), new Sprite(buttonTexture),
+                new RectangleF(oneWidthUnit, buttonTopY, oneWidthUnit * 2, buttonHeight),
+                titles[i]));
+
+            button.Get<Button>().Click += actions[i];
+        }
     }
 }

@@ -24,7 +24,7 @@ public class LoseScreen : State
             .Build();
 
         InitButtons();
-        
+
         base.Initialize();
     }
 
@@ -34,28 +34,27 @@ public class LoseScreen : State
 
     private void InitButtons()
     {
-        var toMenuButton = World.CreateEntity();
-        var reRunButton = World.CreateEntity();
-
-        var yStart = Graphics.PreferredBackBufferHeight * 3 / 5;
-        var yEnd = Graphics.PreferredBackBufferHeight * 4 / 5;
+        var buttonTopY = Graphics.PreferredBackBufferHeight * 3 / 5;
+        var buttonHeight = Graphics.PreferredBackBufferHeight / 5;
 
         var oneWidthUnit = Graphics.PreferredBackBufferWidth * 15 / 100;
         var buttonTexture = AstroGalaxy.Instance.Content.Load<Texture2D>(Constants.ButtonTexturePath);
 
-        toMenuButton.Attach(new Button(
-            new Transform2(oneWidthUnit, yStart),
-            new Sprite(buttonTexture), new RectangleF(oneWidthUnit, yStart, oneWidthUnit * 2, yEnd - yStart),
-            Constants.LoseScreenMenuButtonText));
+        var states = new[] { GameState.SplashScreen, GameState.Game };
+        var titles = new[] { Constants.LoseScreenMenuButtonText, Constants.LoseScreenRepeatButtonText };
 
-        toMenuButton.Get<Button>().Click += () => AstroGalaxy.Instance.StateMachine.SetState(GameState.SplashScreen);
+        for (var i = 0; i < 2; i++)
+        {
+            var index = i;
+            var buttonLeftX = index == 0 ? oneWidthUnit : Graphics.PreferredBackBufferWidth - oneWidthUnit * 3;
+            var button = World.CreateEntity();
 
-        reRunButton.Attach(new Button(
-            new Transform2(Graphics.PreferredBackBufferWidth - oneWidthUnit * 3, yStart),
-            new Sprite(buttonTexture),
-            new RectangleF(Graphics.PreferredBackBufferWidth - oneWidthUnit * 3, yStart, oneWidthUnit * 2,
-                yEnd - yStart), Constants.LoseScreenRepeatButtonText));
+            button.Attach(new Button(
+                new Transform2(buttonLeftX, buttonTopY), new Sprite(buttonTexture), 
+                new RectangleF(buttonLeftX, buttonTopY, oneWidthUnit * 2, buttonHeight),
+                titles[index]));
 
-        reRunButton.Get<Button>().Click += () => AstroGalaxy.Instance.StateMachine.SetState(GameState.Game);
+            button.Get<Button>().Click += () => AstroGalaxy.Instance.StateMachine.SetState(states[index]);
+        }
     }
 }
