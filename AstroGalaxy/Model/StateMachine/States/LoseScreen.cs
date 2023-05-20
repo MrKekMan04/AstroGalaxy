@@ -11,7 +11,7 @@ namespace AstroGalaxy.Model.StateMachine.States;
 
 public class LoseScreen : State
 {
-    private float _score;
+    private readonly float _score;
     
     public LoseScreen(GraphicsDeviceManager graphics, float score) : base(graphics) => _score = score;
 
