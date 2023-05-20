@@ -1,5 +1,6 @@
 ﻿using AstroGalaxy.Controller;
 using AstroGalaxy.View;
+using AstroGalaxy.View.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,6 +13,7 @@ namespace AstroGalaxy.Model.StateMachine.States;
 public class MainGame : State
 {
     public Player Player { get; private set; }
+    public float Score { get; private set; }
     private Sprite _playerSprite;
 
     private bool _isPauseButtonPressed;
@@ -27,7 +29,7 @@ public class MainGame : State
             { Origin = Vector2.Zero };
 
         World = new WorldBuilder()
-            .AddSystem(new PlayerProcessing())
+            .AddSystem(new PlayerProcessing(this))
             .AddSystem(new SpikeUpdate(this))
             .AddSystem(new CheckBoundariesUpdate())
             .AddSystem(new EntityRender(Graphics.GraphicsDevice))
@@ -48,6 +50,8 @@ public class MainGame : State
     }
 
     public override void Draw(GameTime gameTime) => World.Draw(gameTime);
+
+    public void AddScore(float score) => Score += score;
 
     private void InitPlayer()
     {

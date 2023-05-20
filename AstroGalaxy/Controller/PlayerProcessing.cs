@@ -11,11 +11,10 @@ namespace AstroGalaxy.Controller;
 public class PlayerProcessing : EntityProcessingSystem
 {
     private ComponentMapper<Player> _playerMapper;
+    private readonly MainGame _game;
 
-    public PlayerProcessing() : base(Aspect.All(typeof(Player)))
-    {
-    }
-    
+    public PlayerProcessing(MainGame game) : base(Aspect.All(typeof(Player))) => _game = game;
+
     public override void Initialize(IComponentMapperService mapperService) =>
         _playerMapper = mapperService.GetMapper<Player>();
 
@@ -26,7 +25,10 @@ public class PlayerProcessing : EntityProcessingSystem
         if (!player.IsInJump && Keyboard.GetState().IsKeyDown(Keys.Space))
             player.Jump();
 
-        player.Update(gameTime.GetElapsedSeconds());
+        var elapsedSeconds = gameTime.GetElapsedSeconds();
+        
+        player.Update(elapsedSeconds);
+        _game.AddScore(elapsedSeconds);
 
         if (player.IsDead())
             AstroGalaxy.Instance.StateMachine.SetState(GameState.LoseScreen);
