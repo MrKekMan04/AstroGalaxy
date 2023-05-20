@@ -2,6 +2,7 @@
 using AstroGalaxy.Controller;
 using AstroGalaxy.Model.UI;
 using AstroGalaxy.View;
+using AstroGalaxy.View.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;

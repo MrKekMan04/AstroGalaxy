@@ -1,5 +1,6 @@
 ﻿using AstroGalaxy.Controller;
 using AstroGalaxy.View;
+using AstroGalaxy.View.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

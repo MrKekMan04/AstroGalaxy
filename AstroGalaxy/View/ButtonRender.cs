@@ -48,7 +48,7 @@ public class ButtonRender : EntityDrawSystem
             _spriteBatch.DrawString(_spriteFont, button.Text,
                 new Vector2((button.Boundaries.Left + (button.Boundaries.Width - textWidth) / 2) * scale.X,
                     (button.Boundaries.Top + (button.Boundaries.Height - Constants.ArialFontHeight) / 2) * scale.Y),
-                Color.Yellow, button.Transform.Rotation, Vector2.Zero, scale, SpriteEffects.None, 0);
+                Color.Aqua, button.Transform.Rotation, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
 
         _spriteBatch.End();
