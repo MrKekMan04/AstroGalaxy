@@ -2,7 +2,7 @@
 
 namespace AstroGalaxy;
 
-public abstract class Constants
+public static class Constants
 {
     public const string PlayerTexturePath = "Entities Textures/asteroid_4x4";
     public const int PlayerDefaultHealth = 3;
@@ -25,8 +25,11 @@ public abstract class Constants
     public const string LoseScreenMenuButtonText = "В меню";
     public const string LoseScreenRepeatButtonText = "Заново";
     public const string LoseScreenTitle = "ПОТРАЧЕНО!";
+    public const string LoseScreenScoreReceivedText = "Очков набрано: {0:f1}";
 
     public const string SplashScreenPlayButtonText = "Играть";
     public const string SplashScreenExitButtonText = "Выход";
     public const string SplashScreenTitle = "Astro Galaxy";
+
+    public const string MainGameScoreText = "Очки: {0:f1}";
 }

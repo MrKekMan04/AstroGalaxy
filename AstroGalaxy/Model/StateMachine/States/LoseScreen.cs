@@ -11,15 +11,15 @@ namespace AstroGalaxy.Model.StateMachine.States;
 
 public class LoseScreen : State
 {
-    public LoseScreen(GraphicsDeviceManager graphics) : base(graphics)
-    {
-    }
+    private float _score;
+    
+    public LoseScreen(GraphicsDeviceManager graphics, float score) : base(graphics) => _score = score;
 
     public override void Initialize()
     {
         World = new WorldBuilder()
             .AddSystem(new ButtonUpdate())
-            .AddSystem(new LoseScreenUiRender(Graphics.GraphicsDevice))
+            .AddSystem(new LoseScreenUiRender(Graphics.GraphicsDevice, _score))
             .AddSystem(new ButtonRender(Graphics.GraphicsDevice))
             .Build();
 

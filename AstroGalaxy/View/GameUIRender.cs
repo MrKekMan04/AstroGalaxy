@@ -8,12 +8,14 @@ namespace AstroGalaxy.View;
 public class GameUiRender : DrawSystem
 {
     private readonly SpriteBatch _spriteBatch;
+    private readonly SpriteFont _spriteFont;
     private readonly Texture2D _heartTexture;
     private readonly MainGame _game;
 
     public GameUiRender(GraphicsDevice graphicsDevice, MainGame game)
     {
         _spriteBatch = new SpriteBatch(graphicsDevice);
+        _spriteFont = AstroGalaxy.Instance.Content.Load<SpriteFont>(Constants.ArialFontPath);
         _heartTexture = AstroGalaxy.Instance.Content.Load<Texture2D>(Constants.HeartTexturePath);
         _game = game;
     }
@@ -24,6 +26,14 @@ public class GameUiRender : DrawSystem
 
         var scale = AstroGalaxy.Instance.WindowScale;
 
+        DrawHearts(scale);
+        DrawScore(scale);
+
+        _spriteBatch.End();
+    }
+
+    private void DrawHearts(Vector2 scale)
+    {
         var startY = AstroGalaxy.Instance.Graphics.PreferredBackBufferHeight / 2 -
                      _game.Player.Health * Constants.HeartSpriteSize / 2;
 
@@ -37,7 +47,16 @@ public class GameUiRender : DrawSystem
                 scale,
                 SpriteEffects.None,
                 0);
-
-        _spriteBatch.End();
     }
+
+    private void DrawScore(Vector2 scale) =>
+        _spriteBatch.DrawString(_spriteFont,
+            string.Format(Constants.MainGameScoreText, _game.Score),
+            Vector2.Zero,
+            Color.Aqua,
+            0f,
+            Vector2.Zero,
+            scale,
+            SpriteEffects.None,
+            0);
 }
